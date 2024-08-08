@@ -1,9 +1,4 @@
 # Terrapulse
-Here’s a draft for your TerraPulse README file:
-
----
-
-# TerraPulse
 
 Welcome to **TerraPulse** — the all-in-one sustainability companion app designed to help you live a more eco-friendly life. TerraPulse combines sustainable travel planning, smart waste management, and eco-conscious shopping into a unified platform that empowers you to make a positive impact on the planet.
 
