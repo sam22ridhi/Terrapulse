@@ -29,11 +29,14 @@ Welcome to **TerraPulse** — the all-in-one sustainability companion app design
 - **Plan Eco-Friendly Routes**: Get suggestions for the most sustainable travel options, including public transport, biking, or walking.
 - **Track Your Impact**: Monitor your travel-related carbon savings and earn rewards for consistent eco-friendly choices.
 - **Eco-Friendly Destinations**: Discover green accommodations, dining options, and attractions.
+![image](https://github.com/user-attachments/assets/19150904-962b-474f-ad08-20b15ffea236)
 
 ### WasteWise: Smart Waste Management
 - **AI-Powered Waste Recognition**: Identify and categorize waste items using your phone’s camera, with guidance on proper disposal.
 - **Connect with Recycling Centers**: Find nearby recycling centers and donation locations.
 - **Waste Reduction Challenges**: Participate in gamified challenges to reduce waste and compete with friends.
+  ![image](https://github.com/user-attachments/assets/ea7412d1-6d9a-44e2-af28-0b58507328c7)
+
 
 ### Sustainify: Sustainable Shopping Assistant
 - **Barcode Scanning**: Instantly get sustainability information on products and discover eco-friendly alternatives.
