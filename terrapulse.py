@@ -7,6 +7,7 @@ import folium
 from streamlit_folium import folium_static
 import os
 from dotenv import load_dotenv
+from streamlit_option_menu import option_menu
 
 # Load environment variables
 load_dotenv()
@@ -28,116 +29,95 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #f0f4f8;
-        font-family: 'Roboto', sans-serif;
+        background-color: #f5f7fa;
+        font-family: 'Poppins', sans-serif;
     }
     h1, h2, h3 {
-        color: #005bb5;
+        color: #008080;
         font-weight: 700;
     }
     h1 {
-        font-size: 2.5em;
+        font-size: 3em;
         text-align: center;
         margin-bottom: 20px;
     }
     h2 {
-        font-size: 2em;
+        font-size: 2.2em;
         margin-top: 20px;
     }
     h3 {
-        font-size: 1.5em;
+        font-size: 1.8em;
     }
     .stApp {
-        padding: 15px;
-        border-radius: 5px;
-        background-color: #f0f4f8;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f5f7fa;
     }
     .stButton>button {
-        background-color: #0073e6;
+        background-color: #008080;
         color: white;
         border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
+        padding: 12px 24px;
+        font-size: 18px;
+        border-radius: 10px;
         transition: background-color 0.3s;
     }
     .stButton>button:hover {
-        background-color: #005bb5;
+        background-color: #006666;
     }
     .stTextInput>div>div>input {
-        border-radius: 5px;
+        border-radius: 10px;
         border: 1px solid #ccc;
-        padding: 10px;
+        padding: 12px;
         font-size: 18px;
     }
-    .stTextInput>div {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-    }
     .stSidebar > div {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 15px;
-        border-radius: 5px;
-    }
-    .sidebar-emoji {
-        text-align: center;
-    }
-    .sidebar-emoji img {
-        width: 2in;
-        height: 2in;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 10px;
     }
     .chat-message {
         font-size: 18px;
         font-weight: bold;
-        color: #0073e6;
+        color: #008080;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Sidebar options
-# Sidebar options and instructions
-st.sidebar.title("🌎 TerraPulse")
-option = st.sidebar.selectbox(
-    "Choose an option:",
-    ["Waste-wise", "EcoRoute: Sustainable Travel Planner"]
+# Sidebar with option menu
+selected_option = option_menu(
+    menu_title="🌎 TerraPulse",  
+    options=["Home", "Waste-wise", "EcoRoute: Sustainable Travel Planner"],  
+    icons=["house", "recycle", "globe"],  
+    menu_icon="cast",  
+    default_index=0,  
+    orientation="horizontal",
+    styles={
+        "container": {"padding": "5!important", "background-color": "#e0f7fa"},
+        "icon": {"color": "#006666", "font-size": "25px"}, 
+        "nav-link": {"font-size": "20px", "text-align": "center", "margin":"0px", "--hover-color": "#e0f7fa"},
+        "nav-link-selected": {"background-color": "#008080"},
+    }
 )
 
-if option == "Waste-wise":
-    st.sidebar.subheader("♻️ Waste-wise Instructions")
-    st.sidebar.markdown(
+# Home page
+if selected_option == "Home":
+    st.title("🌍 Welcome to TerraPulse")
+    st.markdown(
         """
-       **1. Upload an Image** 📸  
-    Click the "Upload Image" button to select one or more images of trash items.
-
-    **2. Analyze Image** 🔍  
-    After uploading, click the "Analyze Image" button to begin analysis.
-
-    **3. Get Classification** 🗑️  
-    The app will classify the waste into categories and suggest the correct dustbin for disposal.
-    
-    **4. Review Results** ✅  
-    The analysis results will appear next to the uploaded image.
+        **TerraPulse** is your go-to application for a sustainable future. 🌱  
+        Whether you're looking to classify waste for proper disposal or planning an eco-friendly route for your next trip, TerraPulse has got you covered.
+        
+        **Features:**
+        - **♻️ Waste-wise:** Upload images of trash items, and TerraPulse will classify them into recyclables, compostables, hazardous materials, and general waste.  
+        - **🌍 EcoRoute:** Plan your travel with the environment in mind. Get the most sustainable routes, transportation suggestions, and carbon footprint estimates.
+        
+        **Let's work together for a cleaner and greener planet!** 🌍💚
         """
     )
 
-elif option == "EcoRoute: Sustainable Travel Planner":
-    st.sidebar.subheader("🌍 EcoRoute Instructions")
-    st.sidebar.markdown(
-        """
-        **1. Enter Locations** 🏙️  
-        Provide your start and destination locations.
-
-        **2. Find Route** 🚶‍♂️  
-        Click "Find Eco-Friendly Route" to get the most sustainable travel options.
-
-        **3. Review Results** ✅  
-        View the route, transportation suggestions, and carbon footprint estimates.
-
-        """
-    )
 # Load Gemini Pro Vision model
 @st.cache_resource
 def load_model():
@@ -158,7 +138,7 @@ def analyze_image(image, prompt):
         return None
 
 # Waste-wise section
-def Wastewise():
+if selected_option == "Waste-wise":
     st.title("♻️ Waste-wise")
 
     st.subheader("📤 Upload Image")
@@ -189,7 +169,7 @@ def Wastewise():
                     st.info("Click 'Analyze Image' to start the analysis.")
 
 # EcoRoute section
-def EcoRoute():
+if selected_option == "EcoRoute: Sustainable Travel Planner":
     st.title("🌍 EcoRoute: Sustainable Travel Planner")
 
     gmaps = googlemaps.Client(key=MAP_API_KEY)
@@ -213,16 +193,26 @@ def EcoRoute():
                 start_coords = geocode_start[0]['geometry']['location']
                 end_coords = geocode_end[0]['geometry']['location']
 
-                # Valid modes of transportation
-                valid_modes = ["driving", "walking", "bicycling", "transit"]
-
                 # Prompt Google Gemini API to suggest an eco-friendly mode of transport
-                prompt = f"""You are an eco-friendly mode of transport suggestor, your job is to provide me with the best routes in bulletins in a comprehensive manner. Suggest the most eco-friendly mode of transport between {start_location} and {destination_location}, here is the number of people traveling {no_of_people}. Consider all the above parameters to provide the result in the below format"""
+                prompt = f"""You are an eco-friendly mode of transport suggestor, your job is to provide me with the best routes in bulletins in a comprehensive manner. Suggest the most eco-friendly mode of transport between {start_location} and {destination_location}, here is the number of people traveling {no_of_people}. Consider all the above parameters to provide the result in the below format:
+                Distance: [distance]
+                
+                Mode 1 (Ex: Train)
+                Time: [time taken to travel from start to end location], use your own knowledge
+                Feasibility: [Provide How feasible it is]
+                Route: [Provide detailed route]
+
+                Similarly using your own knowledge provide eco-friendly routes and the most eco-friendly along with the estimated carbon footprint.
+                """
                 response = model.generate_content([prompt])
                 eco_friendly_mode = response.text.strip().lower()
 
-                # Check if the suggested mode is valid, otherwise default to 'walking'
+                # Valid modes of transportation
+                valid_modes = ["driving", "walking", "bicycling", "transit"]
+
+                # Check if the suggested mode is valid; default to 'walking' if invalid
                 if eco_friendly_mode not in valid_modes:
+                    st.warning(f"Suggested mode '{eco_friendly_mode}' is not valid. Defaulting to 'walking'.")
                     eco_friendly_mode = "walking"
 
                 st.write(f"Suggested eco-friendly mode: {eco_friendly_mode.capitalize()}")
@@ -242,7 +232,22 @@ def EcoRoute():
                     st.write(route['summary'])
 
                     # Calculate carbon footprint using Google Gemini (Placeholder logic)
-                    prompt2 = f"You are a carbon footprint calculator, you will calculate the carbon footprint for a {route['legs'][0]['distance']['text']} {eco_friendly_mode} trip and provide me the best answer."
+                    prompt2 = f"""You are a carbon footprint calculator. I need to determine the carbon emissions for different modes of transportation over a given distance between {start_location} and {destination_location} Please provide the estimated carbon footprint in kilograms of CO2 for the following transportation modes:
+
+1. **Driving**: Calculate the carbon footprint for driving a vehicle over a distance of [Distance] kilometers. Use an average emission factor for a gasoline car (e.g., 0.2 kg CO2 per km).
+
+2. **Public Transit**: Calculate the carbon footprint for traveling by public transit (e.g., bus or train) over a distance of [Distance] kilometers. Use an average emission factor for public transit (e.g., 0.05 kg CO2 per km).
+
+3. **Bicycling**: Calculate the carbon footprint for traveling by bicycle over a distance of [Distance] kilometers. For simplicity, you can consider the footprint as negligible or use an average factor if necessary (e.g., 0.01 kg CO2 per km).
+
+4. **Walking**: Calculate the carbon footprint for walking over a distance of [Distance] kilometers. The footprint is typically negligible, but include it if needed (e.g., 0.01 kg CO2 per km for infrastructure and production).
+
+For each mode of transportation, provide:
+- The total carbon footprint in kilograms of CO2.
+- A brief explanation of how you derived the emission factors and calculations.
+
+Please ensure the results are presented in a clear and concise manner.
+"""
                     response = model.generate_content([prompt2])
                     carbon_footprint = response.text.strip()
                     st.write(f"Estimated Carbon Footprint: {carbon_footprint}")
@@ -284,9 +289,3 @@ def EcoRoute():
                 st.error("Invalid locations entered. Please check your input and try again.")
         else:
             st.error("Please enter both start and destination locations.")
-
-# Main logic
-if option == "Waste-wise":
-    Wastewise()
-elif option == "EcoRoute: Sustainable Travel Planner":
-    EcoRoute()
