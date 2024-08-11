@@ -98,12 +98,46 @@ st.markdown(
 )
 
 # Sidebar options
+# Sidebar options and instructions
 st.sidebar.title("🌎 TerraPulse")
 option = st.sidebar.selectbox(
     "Choose an option:",
     ["Waste-wise", "EcoRoute: Sustainable Travel Planner"]
 )
 
+if option == "Waste-wise":
+    st.sidebar.subheader("♻️ Waste-wise Instructions")
+    st.sidebar.markdown(
+        """
+       **1. Upload an Image** 📸  
+    Click the "Upload Image" button to select one or more images of trash items.
+
+    **2. Analyze Image** 🔍  
+    After uploading, click the "Analyze Image" button to begin analysis.
+
+    **3. Get Classification** 🗑️  
+    The app will classify the waste into categories and suggest the correct dustbin for disposal.
+    
+    **4. Review Results** ✅  
+    The analysis results will appear next to the uploaded image.
+        """
+    )
+
+elif option == "EcoRoute: Sustainable Travel Planner":
+    st.sidebar.subheader("🌍 EcoRoute Instructions")
+    st.sidebar.markdown(
+        """
+        **1. Enter Locations** 🏙️  
+        Provide your start and destination locations.
+
+        **2. Find Route** 🚶‍♂️  
+        Click "Find Eco-Friendly Route" to get the most sustainable travel options.
+
+        **3. Review Results** ✅  
+        View the route, transportation suggestions, and carbon footprint estimates.
+
+        """
+    )
 # Load Gemini Pro Vision model
 @st.cache_resource
 def load_model():
