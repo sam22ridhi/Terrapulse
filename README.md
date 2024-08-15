@@ -1,6 +1,4 @@
-Here’s a refined project summary for TerraPulse with the provided images and integrated links:
 
----
 
 # TerraPulse
 
@@ -53,6 +51,3 @@ We plan to expand TerraPulse by incorporating more real-time data sources, enhan
 
 **Hugging Face Space**: [Explore TerraPulse on Hugging Face](https://huggingface.co/spaces/samiee2213/terra_pulse)
 
----
-
-This version is well-structured, includes relevant images, and integrates all necessary links. It’s ready for your project documentation or presentation.
