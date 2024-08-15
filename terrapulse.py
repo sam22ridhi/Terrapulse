@@ -205,6 +205,11 @@ if selected_option == "EcoRoute: Sustainable Travel Planner":
         ["1", "2", "3-6", "6-10", "10+"]
     )
 
+    def calculate_trees(carbon_footprint):
+        """Calculate the number of trees required to offset the carbon footprint."""
+        carbon_per_tree = 0.02177  # Metric tons of CO₂ absorbed per year by one tree
+        return carbon_footprint / carbon_per_tree
+
     if st.button("Find Eco-Friendly Route"):
         if start_location and destination_location:
             # Geocoding the start and end locations
