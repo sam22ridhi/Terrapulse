@@ -3,6 +3,7 @@
 # TerraPulse
 
 ## Inspiration
+
 Climate change is the defining challenge of our time. TerraPulse was born out of a desire to empower individuals and businesses with the tools they need to make sustainable choices effortlessly. We aimed to create a platform that combines cutting-edge technology with practical, real-world applications to help reduce our collective carbon footprint.
 
 ![image](https://github.com/user-attachments/assets/38a0d604-2ea9-4ba3-8c2b-b8c17d82d684)
